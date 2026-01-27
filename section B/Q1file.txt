@@ -1,0 +1,43 @@
+#Q1: Write a C++ program that performs the following operations:
+#Read input from the keyboard (terminal) and store it in a buffer.
+#Open a file in write-only mode and write the contents of the buffer to the file. 
+#Ensure that the file is created if it does not already exist.
+
+code cpp:
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string buffer;
+    string filename = "out.txt";
+
+    cout << "enter text: ";
+    getline(cin, buffer);
+
+
+    ofstream file(filename, ios::out);
+
+    if (!file) {
+        cout << "error opening file!" << endl;
+        return 1;
+    }
+
+    file << buffer;
+
+    cout << "data saved successfully." << endl;
+
+
+    file.close();
+
+    return 0;
+}
+
+
+
+// g++ Q1file.cpp -o Q1file
+//./Q1file
+//cat out.txt

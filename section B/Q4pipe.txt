@@ -1,0 +1,74 @@
+Q4: Write a C++ program to demonstrate unidirectional inter-process communication
+using a pipe.
+1. Create a pipe.
+2. Create a child process using fork..
+3. In the parent process, writes your registration number as a string into the pipe and close the write end of the pipe.
+4. In the child process, read the string from the pipe into a buffer and displays it on the screen. Print the thread id as well.
+Note: The <unistd.h> library will provides the required pipe related system calls. Follow best practices
+to code.
+
+code cpp:
+
+#include <iostream>
+#include <unistd.h>
+#include <sys/types.h>
+#include <pthread.h>
+#include <cstring>
+
+using namespace std;
+
+int main() {
+    int fd[2];
+    pid_t pid;
+
+    if (pipe(fd) == -1) {
+        perror("pipe failed");
+        return 1;
+    }
+
+
+    pid = fork();
+
+    if (pid < 0) {
+        perror("fork failed");
+        return 1;
+    }
+
+    if (pid > 0) {
+
+        close(fd[0]);
+
+
+        const char *reg_no = "CS231196";
+
+        write(fd[1], reg_no, strlen(reg_no) + 1);
+
+        cout << "parent: sent registration number." << endl;
+
+        close(fd[1]);
+    }
+
+    else {
+
+        close(fd[1]);
+
+        char buffer[100];
+
+        read(fd[0], buffer, sizeof(buffer));
+
+        cout << "child: received = " << buffer << endl;
+
+        pthread_t tid = pthread_self();
+
+        cout << "child thread ID: " << tid << endl;
+
+        close(fd[0]);
+    }
+
+    return 0;
+}
+
+
+
+//g++ Q4pipe.cpp -o Q4pipe -pthread
+//./Q4pipe
