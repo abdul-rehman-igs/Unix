@@ -1,0 +1,18 @@
+Q2 - grep Patterns (Likely Variation)
+Predicted: Find lines that:
+
+a) Start with "ERROR" or "WARNING"
+b) Contain IP addresses (pattern: xxx.xxx.xxx.xxx)
+c) End with file extensions (.log, .txt, .dat)
+
+# Create sample file
+cat > logs.txt
+
+# a) Lines starting with ERROR or WARNING
+grep -E "^(ERROR|WARNING)" logs.txt
+
+# b) Lines with IP addresses
+grep -E "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}" logs.txt
+
+# c) Lines ending with specific extensions
+grep -E "\.(log|txt|dat)$" logs.txt

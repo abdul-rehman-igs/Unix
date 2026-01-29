@@ -1,0 +1,23 @@
+Q5 - Thread Safety (Likely Variation)
+Predicted:
+
+a) Explain deadlock scenario with 2 threads and 2 locks
+b) Implement a decrementer function with mutex OR use semaphores
+
+// Alternative: Using semaphore instead of mutex
+#include <pthread.h>
+#include <semaphore.h>
+
+extern int shared_resource;
+sem_t semaphore;
+
+void* decrementer(void* arg) {
+    for (int i = 0; i < 1000000; i++) {
+        sem_wait(&semaphore);  // Lock
+        shared_resource--;
+        sem_post(&semaphore);  // Unlock
+    }
+    return NULL;
+}
+
+// In main: sem_init(&semaphore, 0, 1);

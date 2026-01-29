@@ -1,0 +1,2 @@
+g++ filename.cpp -o output
+g++ filename.cpp -o output -pthread (for threads)

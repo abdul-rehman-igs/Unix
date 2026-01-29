@@ -1,0 +1,12 @@
+Q3 - File Search (Likely Variation)
+Predicted:
+
+a) Find files in /home modified in last 7 days AND smaller than 1MB
+b) Use locate to find all .conf files, count them
+
+# a) Find with multiple conditions
+find /home -type f -mtime -7 -size -1M
+
+# b) Locate and count
+sudo updatedb
+locate "*.conf" | wc -l

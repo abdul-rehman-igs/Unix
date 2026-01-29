@@ -1,0 +1,35 @@
+Q1 - File I/O (Likely Variation)
+Predicted: Write a C++ program that:
+
+Opens a file in read-only mode
+Reads contents into a buffer
+Displays the buffer contents on terminal
+Handles file-not-found errors
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main() {
+    string filename = "input.txt";
+    string line;
+    
+    ifstream file(filename, ios::in);
+    
+    if (!file) {
+        cout << "Error: File not found!" << endl;
+        return 1;
+    }
+    
+    cout << "File contents:" << endl;
+    while (getline(file, line)) {
+        cout << line << endl;
+    }
+    
+    file.close();
+    return 0;
+}
+
+
