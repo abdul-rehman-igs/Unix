@@ -1,0 +1,202 @@
+Basic Syntax
+bashgrep [options] "pattern" filename
+grep -E "extended_regex" filename  # Use this for complex patterns1. Line Position PatternsStart of Line (^)
+bash# Lines starting with "ERROR"
+grep "^ERROR" file.txt
+
+# Lines starting with numbers
+grep "^[0-9]" file.txt
+
+# Lines starting with uppercase letter
+grep "^[A-Z]" file.txt
+
+# Lines starting with specific words
+grep -E "^(START|BEGIN|INIT)" file.txtEnd of Line ($)
+bash# Lines ending with "SUCCESS"
+grep "SUCCESS$" file.txt
+
+# Lines ending with a digit
+grep "[0-9]$" file.txt
+
+# Lines ending with file extensions
+grep -E "\.(txt|log|dat)$" file.txt
+
+# Lines ending with punctuation
+grep "[.!?]$" file.txtEntire Line Match
+bash# Lines containing only digits
+grep "^[0-9]*$" file.txt
+
+# Lines that are exactly "OK"
+grep "^OK$" file.txt
+
+# Empty lines
+grep "^$" file.txt2. Character Classes & Rangesbash# Any digit
+grep "[0-9]" file.txt
+
+# Any lowercase letter
+grep "[a-z]" file.txt
+
+# Any uppercase letter
+grep "[A-Z]" file.txt
+
+# Any alphanumeric
+grep "[a-zA-Z0-9]" file.txt
+
+# Specific characters
+grep "[aeiou]" file.txt
+
+# NOT these characters (^inside brackets means NOT)
+grep "[^0-9]" file.txt  # Lines with non-digits
+
+# Range of digits
+grep "[0-5]" file.txt  # Digits 0 to 53. Repetition PatternsUsing * (0 or more)
+bash# Lines with "erro" followed by any number of 'r's
+grep "erro*" file.txt  # matches: erro, error, errorrr
+
+# Lines with optional spaces
+grep "test *data" file.txtUsing + (1 or more) - NEEDS -E
+bash# One or more digits
+grep -E "[0-9]+" file.txt
+
+# One or more spaces
+grep -E " +" file.txtUsing ? (0 or 1) - NEEDS -E
+bash# Optional 's' (color/colour)
+grep -E "colou?r" file.txt
+
+# Optional character
+grep -E "files?" file.txt  # matches: file, filesUsing {n} (exact count) - NEEDS -E
+bash# Exactly 3 digits
+grep -E "[0-9]{3}" file.txt
+
+# Exactly 4 letters
+grep -E "[a-z]{4}" file.txt
+
+# Exactly 2 uppercase letters
+grep -E "[A-Z]{2}" file.txtUsing {n,m} (range) - NEEDS -E
+bash# 2 to 4 digits
+grep -E "[0-9]{2,4}" file.txt
+
+# At least 3 digits
+grep -E "[0-9]{3,}" file.txt
+
+# Up to 5 letters
+grep -E "[a-z]{1,5}" file.txt4. Multiple Patterns (OR)bash# Lines with "ERROR" OR "WARNING"
+grep -E "ERROR|WARNING" file.txt
+
+# Lines starting with ERROR OR WARNING
+grep -E "^(ERROR|WARNING)" file.txt
+
+# Multiple word matches
+grep -E "apple|banana|orange" file.txt
+
+# Device patterns
+grep -E "Device(A|B|C)" file.txt5. Word Boundariesbash# Whole word "test" (not "testing")
+grep -w "test" file.txt
+
+# Words starting with "temp"
+grep -E "\btemp" file.txt
+
+# Words ending with "ing"
+grep -E "ing\b" file.txt6. Common Real-World PatternsIP Addresses
+bash# Simple IP pattern
+grep -E "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}" file.txt
+
+# IP addresses on a line
+grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" file.txtEmail Addresses
+bash# Basic email pattern
+grep -E "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" file.txt
+
+# Simple version
+grep -E "[a-zA-Z0-9]+@[a-zA-Z]+\.[a-z]+" file.txtDates
+bash# YYYY-MM-DD format
+grep -E "[0-9]{4}-[0-9]{2}-[0-9]{2}" file.txt
+
+# DD/MM/YYYY format
+grep -E "[0-9]{2}/[0-9]{2}/[0-9]{4}" file.txtPhone Numbers
+bash# Format: 123-456-7890
+grep -E "[0-9]{3}-[0-9]{3}-[0-9]{4}" file.txt
+
+# Format: (123) 456-7890
+grep -E "\([0-9]{3}\) [0-9]{3}-[0-9]{4}" file.txtURLs
+bash# HTTP/HTTPS URLs
+grep -E "https?://[a-zA-Z0-9./-]+" file.txtMAC Addresses
+bash# Format: AA:BB:CC:DD:EE:FF
+grep -E "([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}" file.txt7. Log File Specific Patternsbash# Error levels
+grep -E "^(ERROR|WARN|INFO|DEBUG)" logs.txt
+
+# Timestamps (HH:MM:SS)
+grep -E "[0-9]{2}:[0-9]{2}:[0-9]{2}" logs.txt
+
+# Status codes
+grep -E "(200|404|500)" access.log
+
+# Lines with "failed" or "error"
+grep -iE "failed|error" logs.txt  # -i for case-insensitive8. Device/Sensor Patterns (Common in OS Labs)bash# Devices with numbers
+grep -E "device[0-9]+" file.txt
+
+# Sensors online/offline
+grep -E "SENSOR.*ONLINE" file.txt
+
+# Device status
+grep -E "Device[A-Z]-[0-9]{4} (ACTIVE|INACTIVE)" file.txt
+
+# IoT devices
+grep -E "^iot-device-[0-9]" file.txt
+
+# Sensor names ending with digit or letter
+grep -E "sensor-[0-9a-z]$" file.txt9. File Extensionsbash# Lines ending with .txt, .log, .dat
+grep -E "\.(txt|log|dat)$" file.txt
+
+# Lines with any file extension
+grep -E "\.[a-z]{2,4}$" file.txt
+
+# Specific extensions
+grep "\.cpp$" file.txt
+grep "\.sql$" file.txt10. Useful Optionsbash# Case-insensitive search
+grep -i "error" file.txt
+
+# Count matching lines
+grep -c "ERROR" file.txt
+
+# Show line numbers
+grep -n "error" file.txt
+
+# Invert match (lines NOT matching)
+grep -v "SUCCESS" file.txt
+
+# Show only filename
+grep -l "error" *.txt
+
+# Recursive search in directory
+grep -r "TODO" /home/user/
+
+# Show 2 lines before and after match
+grep -C 2 "ERROR" file.txt
+
+# Show only matching part
+grep -o "error[0-9]*" file.txt
+
+# Multiple files
+grep "pattern" file1.txt file2.txt
+
+# With wildcards
+grep "ERROR" *.log11. Combined Patterns (Exam Favorites)bash# Lines starting with TEMP and ending with ONLINE
+grep -E "^TEMP.*ONLINE$" file.txt
+
+# Device followed by exactly 4 digits
+grep -E "Device[A-Z]-[0-9]{4}" file.txt
+
+# Lines with 3-letter words
+grep -E "\b[a-z]{3}\b" file.txt
+
+# Lines with numbers between 100-999
+grep -E "\b[1-9][0-9]{2}\b" file.txt
+
+# Lines NOT starting with # (comments)
+grep -v "^#" file.txt
+
+# Lines with 2 or more consecutive spaces
+grep -E "  +" file.txt
+
+# Alphanumeric IDs (letters followed by digits)
+grep -E "[A-Z]+[0-9]+" file.txt
