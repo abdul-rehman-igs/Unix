@@ -1,0 +1,53 @@
+1.find Command
+
+find [directory] [expression]
+General syntax to search files.
+
+find /etc -name passwd
+Searches for files named passwd in /etc.
+
+find $HOME -ls
+Lists files in the home directory in long format.
+
+find . -type d -print
+Prints all directories in the current directory.
+
+find /etc -iname "*.conf"
+Searches for .conf files (case-insensitive).
+
+find . -size +10M
+Finds files larger than 10 MB.
+
+find . -size -10M
+Finds files smaller than 10 MB.
+
+find . -size 10M
+Finds files exactly 10 MB.
+
+find . -exec rm {} \;
+Executes rm on each found file (dangerous).
+
+find . -ok rm {} \;
+Asks for confirmation before executing rm on each file.
+
+
+2. locate Command
+
+locate [pattern]
+Searches for files matching the pattern in the database.
+
+locate mysql
+Finds all files with mysql in their name/path.
+
+locate mysql | less
+Pipes output to less for easy scrolling.
+
+locate -e mysql
+Shows only existing files (excludes deleted ones from outdated database).
+
+locate -c mysql
+Counts how many files match the pattern.
+
+locate -n 10 mysql
+Limits results to 10 entries.
+
