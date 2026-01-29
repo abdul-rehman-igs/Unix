@@ -1,0 +1,23 @@
+Create a file named data.txt, and write these in it:
+TEMP_SENSOR_01 ONLINE
+TEMP_SENSOR_02 OFFLINE
+TEMP_SENSOR_03 ONLINE
+iot-device-1 connected
+iot-device-2 connected
+iot-device-3 disconnected
+errorgrep '^error[0-9]*$' data.txt
+grep '^error[0-9]*$' data.txt
+
+error1
+error12
+DeviceA-2023 ACTIVE
+DeviceB-2024 INACTIVE
+Perform the following:
+a) Find all lines that start with 'error' followed by an optional number.
+b) Find lines ending with 'connected.
+c) Find lines where 'TEMP_SENSOR_' ends with two digits.
+
+cat data.txt
+grep '^error[0-9]*$' data.txt
+grep 'connected$' data.txt
+grep '^TEMP_SENSOR_[0-9][0-9]' data.txt

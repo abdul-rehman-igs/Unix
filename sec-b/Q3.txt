@@ -4,7 +4,7 @@ b) Using the locate command, list files with name ending with 'sql' and display 
 
 perform this:
 
-find /usr/share -type f -size +5M -size -10M
+a) find /usr/share -type f -size +5M -size -10M
 
-sudo updatedb
+b) sudo updatedb
 locate "*.sql" | less

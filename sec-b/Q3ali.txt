@@ -1,0 +1,15 @@
+Execute the following tasks:
+a) Using the find command, search the '/usr/share' directory and display all the files (excluding directories).
+b) Explain why the locate command may fail to find a file that you have just created or deleted.
+What commands are required so that locate returns the correct results?
+
+perform this:
+
+a) find /usr/share -type f | head
+
+
+b) locate uses a prebuilt database. It does not search live files. Therefore, newly created or deleted files may not appear.
+
+example:
+sudo updatedb
+locate myfile.txt

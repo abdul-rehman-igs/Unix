@@ -12,7 +12,8 @@ DeviceA-2023 ACTIVE
 DeviceB-2024 INACTIVE
 Perform the following:
 a) Find all lines that start with "TEMP_SENSOR'.
-b) Find lines where 'iot device' ends with' a digit or a lowercase alphabet. c) Find lines where 'DeviceA' or 'DeviceB' ends with exactly four digits.
+b) Find lines where 'iot device' ends with' a digit or a lowercase alphabet. 
+c) Find lines where 'DeviceA' or 'DeviceB' ends with exactly four digits.
 
 perform this:
 
